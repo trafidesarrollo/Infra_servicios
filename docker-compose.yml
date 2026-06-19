@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      AUTOCOTIZADOR_DB_PASSWORD: ${AUTOCOTIZADOR_DB_PASSWORD}
+      BRICA_STOCKINTERMEDIO_DB_PASSWORD: ${BRICA_STOCKINTERMEDIO_DB_PASSWORD}
+      SUMIN_STOCKINTERMEDIO_DB_PASSWORD: ${SUMIN_STOCKINTERMEDIO_DB_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - infra_shared
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - infra_shared
+
+networks:
+  infra_shared:
+    name: infra_shared
+
+volumes:
+  pg_data:
+  caddy_data:
+  caddy_config:

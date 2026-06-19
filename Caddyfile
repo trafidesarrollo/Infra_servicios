@@ -1,0 +1,11 @@
+clientes.traficano.com {
+    reverse_proxy autocotizador-app:5000
+}
+
+brica.traficano.com {
+    reverse_proxy brica-stockintermedio-app:8080
+}
+
+sumin.traficano.com {
+    reverse_proxy sumin-stockintermedio-app:8080
+}

@@ -1,0 +1,27 @@
+services:
+  app:
+    image: ghcr.io/${GITHUB_USERNAME}/stock-intermedio:latest
+    container_name: sumin-stockintermedio-app
+    restart: unless-stopped
+    environment:
+      PORT: 8080
+      DATABASE_URL: ${DATABASE_URL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-}
+      GMAIL_USER: ${GMAIL_USER:-}
+      GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD:-}
+      UPLOADS_DIR: /app/uploads
+    volumes:
+      - uploads_data:/app/uploads
+    ports:
+      - "${APP_PORT:-8081}:8080"
+    networks:
+      - infra_shared
+
+networks:
+  infra_shared:
+    name: infra_shared
+    external: true
+
+volumes:
+  uploads_data:
