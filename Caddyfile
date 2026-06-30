@@ -9,3 +9,7 @@ brica.traficano.com {
 sumin.traficano.com {
     reverse_proxy sumin-stockintermedio-app:8080
 }
+
+mail.traficano.com {
+    reverse_proxy mail-organizer-app:8080
+}

@@ -1,0 +1,22 @@
+services:
+  app:
+    image: ghcr.io/${GITHUB_USERNAME}/mail-organizer-pro:latest
+    container_name: mail-organizer-app
+    restart: unless-stopped
+    environment:
+      PORT: 8080
+      DATABASE_URL: ${DATABASE_URL}
+      SESSION_SECRET: ${SESSION_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      APP_URL: ${APP_URL}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "${APP_PORT:-8082}:8080"
+    networks:
+      - infra_shared
+
+networks:
+  infra_shared:
+    name: infra_shared
+    external: true
