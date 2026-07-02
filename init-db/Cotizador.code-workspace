@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../Autocotizador/Cotizador"
+		},
+		{
+			"path": "../../Stock Intermedio/Stock-intermedio"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../Mail Organizer/Mail-Organizer-Pro"
+		},
+		{
+			"path": "../../Exportacion/crm-exportacion"
+		}
+	],
+	"settings": {}
+}

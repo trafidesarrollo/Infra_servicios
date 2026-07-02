@@ -1,0 +1,21 @@
+services:
+  app:
+    image: ghcr.io/${GITHUB_USERNAME}/crm-exportacion:latest
+    container_name: crm-exportacion-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-5000}
+      DATABASE_URL: ${DATABASE_URL}
+      SESSION_SECRET: ${SESSION_SECRET}
+      REPL_ID: ${REPL_ID:-}
+      ISSUER_URL: ${ISSUER_URL:-}
+    ports:
+      - "${APP_PORT:-5000}:5000"
+    networks:
+      - infra_shared
+
+networks:
+  infra_shared:
+    name: infra_shared
+    external: true

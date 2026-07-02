@@ -10,6 +10,10 @@ sumin.traficano.com {
     reverse_proxy sumin-stockintermedio-app:8080
 }
 
-mail.traficano.com {
+organizador.traficano.com {
     reverse_proxy mail-organizer-app:8080
+}
+
+exportacion.traficano.com {
+    reverse_proxy crm-exportacion-app:5000
 }
